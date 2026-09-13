@@ -1,11 +1,17 @@
-import { NextResponse } from "next/server";
 import { supabaseService } from "@/server/supabase";
+import { NextResponse } from "next/server";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ mint: string }> }) {
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ mint: string }> },
+) {
   const { mint } = await params;
 
   if (!mint || typeof mint !== "string") {
-    return NextResponse.json({ error: "Missing mint address" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Missing mint address" },
+      { status: 400 },
+    );
   }
 
   if (!supabaseService) {
@@ -22,7 +28,10 @@ export async function GET(_request: Request, { params }: { params: Promise<{ min
       .single();
 
     if (error || !data) {
-      return NextResponse.json({ error: "Commitment not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Commitment not found" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json({
@@ -42,6 +51,9 @@ export async function GET(_request: Request, { params }: { params: Promise<{ min
     });
   } catch (e: unknown) {
     console.error("/api/commitment/[mint]: exception", e);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

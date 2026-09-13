@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify
+
+# non-canonical lockfiles (this project uses bun.lock; these are sandbox artifacts)
+/package-lock.json
+/deno.lock
